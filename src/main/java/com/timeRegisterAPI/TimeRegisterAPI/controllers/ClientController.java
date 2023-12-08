@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 @RestController
@@ -36,7 +39,7 @@ public class ClientController {
 
     //Verificar si un cliente en específico está activo
     @CrossOrigin(origins = "http://localhost:5173")
-    @PostMapping(path = "/isExpirated") 
+    @PostMapping(path = "/isExpirated")
     public String isExpirated(@RequestBody Client cl) {
         return clientService.isExpirated(cl);
     }
@@ -49,6 +52,12 @@ public class ClientController {
     }
 
     @CrossOrigin()
+    @PostMapping(path = "/dayofsuscriptions")
+    public long dayofsus(@RequestBody Client cli) {
+        return clientService.daysOfSus(cli);
+    }
+
+    @CrossOrigin()
     @DeleteMapping(path = "/delete={id}")
     public String deleteById(@PathVariable Long id) {
         try {
@@ -56,6 +65,18 @@ public class ClientController {
             return "Se borro el cliente con id: " + id + " con éxito";
         } catch (Exception exception) {
             return "Error en borrar cliente: " + exception;
+        }
+    }
+
+    @CrossOrigin()
+    @PostMapping(path = "/renovar={id}")
+    public boolean renovarSuscripcion(@PathVariable Long id) throws Exception {
+        try {
+            clientService.renovarSuscripcion(id);
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return false;
         }
     }
 

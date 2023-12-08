@@ -20,14 +20,14 @@ public class Client {
     @Column(name = "fecha_registro")
     private LocalDate fecha_registro;
 
-    @Column(name = "isexpirated")
-    private boolean isExpirated;
-
     @Column(name = "cedula")
     private int cedula;
 
     @Column()
     private int telefono;
+
+    @Column(name = "dias_suscripcion")
+    private int dias_suscripcion = 30;
 
     public Long getId() {
         return id;
@@ -53,15 +53,6 @@ public class Client {
         this.fecha_registro = fecha_registro;
     }
 
-    public boolean getisExpirated() {
-        return isExpirated;
-    }
-
-    public void setExpirated(boolean expirated) {
-        isExpirated = expirated;
-    }
-
-
     public int getCedula() {
         return cedula;
     }
@@ -77,4 +68,13 @@ public class Client {
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
+
+    public int getDias_suscripcion() {
+        return dias_suscripcion;
+    }
+
+    public void setDias_suscripcion(int dias_suscripcion) {
+        this.dias_suscripcion = dias_suscripcion;
+    }
+
 }
